@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 set -o errexit
 
-echo "Téléchargement et installation de Composer..."
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"
+echo "Mise en place de Composer..."
+curl -sS https://getcomposer.org/installer | php
 
-echo "Installation des dépendances PHP avec Composer..."
+echo "Installation des dépendances Laravel..."
 php composer.phar install --no-dev --optimize-autoloader
 
-echo "Nettoyage et mise en cache de Laravel..."
-php composer.phar dump-autoload
+echo "Optimisation et migrations..."
 php artisan config:clear
 php artisan config:cache
 php artisan route:cache
