@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 set -o errexit
 
-echo "--- 1. Installation des dépendances PHP ---"
+echo "--- Installation des dépendances PHP ---"
 composer install --no-dev --optimize-autoloader
 
-echo "--- 2. Installation des dépendances Node.js ---"
+echo "--- Build des assets Tailwind / Vite ---"
 npm install
-
-echo "--- 3. Compilation des assets frontend avec Vite ---"
 npm run build
 
-echo "--- 4. Nettoyage et optimisation de Laravel ---"
+echo "--- Nettoyage et création du lien pour les images ---"
 php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+php artisan storage:link || true
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "--- 5. Exécution des migrations ---"
+echo "--- Exécution des migrations ---"
 php artisan migrate --force
