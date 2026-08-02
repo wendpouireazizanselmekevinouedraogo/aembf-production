@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 set -o errexit
 
-echo "Mise en place de Composer..."
-curl -sS https://getcomposer.org/installer | php
+echo "--- 1. Installation des dépendances PHP ---"
+composer install --no-dev --optimize-autoloader
 
-echo "Installation des dépendances Laravel..."
-php composer.phar install --no-dev --optimize-autoloader
+echo "--- 2. Installation des dépendances Node.js ---"
+npm install
 
-echo "Optimisation et migrations..."
+echo "--- 3. Compilation des assets frontend avec Vite ---"
+npm run build
+
+echo "--- 4. Nettoyage et optimisation de Laravel ---"
 php artisan config:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+
+echo "--- 5. Exécution des migrations ---"
 php artisan migrate --force
