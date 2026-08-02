@@ -14,4 +14,3 @@ php artisan route:cache
 php artisan view:cache
 
 echo "--- Exécution des migrations ---"
-php artisan migrate --force
