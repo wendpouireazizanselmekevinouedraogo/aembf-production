@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AEM-BF - Amicale des Étudiants Miniers du Burkina Faso</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <!-- Voici la ligne magique qui charge Tailwind directement -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="antialiased bg-slate-50 text-slate-900 font-sans">
