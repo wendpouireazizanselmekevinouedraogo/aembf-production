@@ -4,10 +4,6 @@ set -o errexit
 echo "--- Installation des dépendances PHP ---"
 composer install --no-dev --optimize-autoloader
 
-echo "--- Build des assets Tailwind / Vite ---"
-npm install
-npm run build
-
 echo "--- Nettoyage et création du lien pour les images ---"
 php artisan config:clear
 php artisan route:clear
