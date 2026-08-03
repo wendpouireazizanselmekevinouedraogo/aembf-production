@@ -20,13 +20,21 @@
         <div>
             <x-input-label for="name" :value="__('Nom')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            
+            <!-- Remplacement de l'erreur pour le nom -->
+            @error('name')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            
+            <!-- Remplacement de l'erreur pour l'email -->
+            @error('email')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
@@ -51,7 +59,11 @@
         <div>
             <x-input-label for="cv" :value="__('Mon CV (PDF ou Word)')" />
             <input id="cv" name="cv" type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" />
-            <x-input-error class="mt-2" :messages="$errors->get('cv')" />
+            
+            <!-- Remplacement de l'erreur pour le CV -->
+            @error('cv')
+                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
 
             @if($user->cv)
                 <div class="mt-3">
