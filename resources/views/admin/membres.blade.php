@@ -10,9 +10,9 @@
                     <span>Gérer Activités & Formations</span>
                 </a>
 
-                <!-- Bouton d'export CSV / Excel -->
+                <!-- Bouton d'export CSV / Excel sans emoji -->
                 <a href="{{ route('admin.export.users') }}" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded shadow-sm transition flex items-center space-x-1">
-                    <span>📥 Exporter CSV</span>
+                    <span>Exporter CSV</span>
                 </a>
                 
                 <a href="{{ route('dashboard') }}" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-4 rounded transition">
@@ -67,7 +67,7 @@
                                     <td class="px-6 py-4 text-center">
                                         @if($u->cv)
                                             <a href="{{ asset('storage/' . $u->cv) }}" target="_blank" class="inline-flex items-center px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded border border-blue-200 transition">
-                                                📄 Voir CV
+                                                Voir CV
                                             </a>
                                         @else
                                             <span class="text-xs text-slate-400 italic">Aucun CV</span>
