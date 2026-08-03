@@ -9,10 +9,11 @@
             <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded text-emerald-800">{{ session('success') }}</div>
         @endif
 
-        <!-- Formulaire d'ajout -->
+        <!-- Formulaire d'ajout avec support des fichiers -->
         <div class="bg-white p-6 shadow-sm sm:rounded-lg border border-slate-200">
-            <h3 class="font-bold text-lg mb-4 text-emerald-800">Ajouter une nouvelle activité</h3>
-            <form action="{{ route('admin.activities.store') }}" method="POST" class="space-y-4">
+            <h3 class="font-bold text-lg mb-4 text-emerald-800">Ajouter une nouvelle activité (Texte + Fichiers)</h3>
+            
+            <form action="{{ route('admin.activities.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -27,8 +28,8 @@
                         </select>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea name="description" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"></textarea>
+                        <label class="block text-sm font-medium text-gray-700">Description / Texte</label>
+                        <textarea name="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"></textarea>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Statut</label>
@@ -37,39 +38,53 @@
                             <option value="en_cours">En cours</option>
                         </select>
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Fichier joint (Image, PDF, Word - Max 5Mo)</label>
+                        <input type="file" name="file_path" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                    </div>
                 </div>
                 <button type="submit" class="bg-emerald-800 text-white px-4 py-2 rounded text-sm font-bold">Enregistrer l'activité</button>
             </form>
         </div>
 
-        <!-- Liste des activités -->
+        <!-- Liste des activités existantes avec suppression -->
         <div class="bg-white p-6 shadow-sm sm:rounded-lg border border-slate-200">
-            <h3 class="font-bold text-lg mb-4">Activités existantes</h3>
-            <table class="min-w-full text-sm">
-                <thead class="bg-slate-50 text-slate-700">
-                    <tr>
-                        <th class="px-4 py-2 text-left">Titre</th>
-                        <th class="px-4 py-2 text-left">Type & Statut</th>
-                        <th class="px-4 py-2 text-left">Inscrits</th>
-                        <th class="px-4 py-2 text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                    @foreach($activities as $act)
+            <h3 class="font-bold text-lg mb-4">Activités enregistrées</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-slate-50 text-slate-700">
                         <tr>
-                            <td class="px-4 py-3 font-medium">{{ $act->title }}</td>
-                            <td class="px-4 py-3 uppercase text-xs">{{ $act->type }} - {{ $act->status }}</td>
-                            <td class="px-4 py-3">{{ $act->users->count() }} personne(s)</td>
-                            <td class="px-4 py-3 text-center">
-                                <form action="{{ route('admin.activities.destroy', $act->id) }}" method="POST">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
-                                </form>
-                            </td>
+                            <th class="px-4 py-2 text-left">Titre</th>
+                            <th class="px-4 py-2 text-left">Type & Statut</th>
+                            <th class="px-4 py-2 text-left">Fichier</th>
+                            <th class="px-4 py-2 text-left">Inscrits</th>
+                            <th class="px-4 py-2 text-center">Action</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @foreach($activities as $act)
+                            <tr>
+                                <td class="px-4 py-3 font-medium">{{ $act->title }}</td>
+                                <td class="px-4 py-3 uppercase text-xs">{{ $act->type }} - {{ $act->status }}</td>
+                                <td class="px-4 py-3">
+                                    @if($act->file_path)
+                                        <a href="{{ asset('storage/' . $act->file_path) }}" target="_blank" class="text-blue-600 underline text-xs">Voir le fichier</a>
+                                    @else
+                                        <span class="text-gray-400 italic text-xs">Aucun</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">{{ $act->users->count() }} personne(s)</td>
+                                <td class="px-4 py-3 text-center">
+                                    <form action="{{ route('admin.activities.destroy', $act->id) }}" method="POST">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:underline text-xs">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </x-app-layout>

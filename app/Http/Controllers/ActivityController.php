@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ActivityController extends Controller
 {
@@ -36,26 +37,45 @@ class ActivityController extends Controller
         return view('admin.activities', compact('activities'));
     }
 
-    // Sauvegarde une nouvelle activité depuis l'Admin
+    // Sauvegarde une nouvelle activité depuis l'Admin (avec support des fichiers)
     public function store(Request $request)
     {
         if (!auth()->check() || !auth()->user()->is_admin) abort(403);
 
-        Activity::create($request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'type' => 'required|in:formation,panel',
             'status' => 'required|in:programme,en_cours,termine',
-        ]));
+            'file_path' => 'nullable|file|mimes:jpeg,png,jpg,pdf,doc,docx|max:5120', // Max 5 Mo
+        ]);
 
-        return back()->with('success', 'Activité ajoutée avec succès.');
+        $filePath = null;
+        if ($request->hasFile('file_path')) {
+            $filePath = $request->file('file_path')->store('activities_files', 'public');
+        }
+
+        Activity::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type' => $request->type,
+            'status' => $request->status,
+            'file_path' => $filePath,
+        ]);
+
+        return back()->with('success', 'Activité et fichier ajoutés avec succès.');
     }
 
-    // Supprime une activité depuis l'Admin
+    // Supprime une activité depuis l'Admin (et supprime le fichier associé s'il existe)
     public function destroy(Activity $activity)
     {
         if (!auth()->check() || !auth()->user()->is_admin) abort(403);
         
+        // Supprimer le fichier physique si présent
+        if ($activity->file_path && Storage::disk('public')->exists($activity->file_path)) {
+            Storage::disk('public')->delete($activity->file_path);
+        }
+
         $activity->delete();
         return back()->with('success', 'Activité supprimée avec succès.');
     }
