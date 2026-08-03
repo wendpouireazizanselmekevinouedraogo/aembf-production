@@ -197,25 +197,38 @@
                 </div>
             </div>
 
-            <!-- Colonne 3 : Nos Valeurs -->
+            <!-- Colonne 3 : Nos Valeurs (Modifiée en liste à puces sans encadré orange) -->
             <div class="bg-white rounded-xl shadow-sm border-t-4 border-amber-400 p-8 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
                         <h3 class="text-lg font-bold text-slate-900 tracking-tight">Nos Valeurs</h3>
                     </div>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-md">Excellence</span>
-                        <span class="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-md">Intégrité</span>
-                        <span class="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-md">Solidarité</span>
-                        <span class="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-md">Innovation</span>
-                        <span class="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-md">Professionnalisme</span>
-                        <span class="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-md">Engagement</span>
-                    </div>
-                </div>
-                <div class="bg-amber-50 p-4 rounded-lg border border-amber-200 mt-4">
-                    <p class="text-xs text-amber-900 italic text-center font-medium leading-relaxed">
-                        "Ensemble pour une jeunesse minière formée, responsable et engagée."
-                    </p>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-emerald-800 rounded-full"></span>
+                            <span class="font-semibold">Excellence</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-emerald-800 rounded-full"></span>
+                            <span class="font-semibold">Intégrité</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-emerald-800 rounded-full"></span>
+                            <span class="font-semibold">Solidarité</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-emerald-800 rounded-full"></span>
+                            <span class="font-semibold">Innovation</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-emerald-800 rounded-full"></span>
+                            <span class="font-semibold">Professionnalisme</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-emerald-800 rounded-full"></span>
+                            <span class="font-semibold">Engagement</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
