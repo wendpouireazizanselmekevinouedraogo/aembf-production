@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Activités & Actualités - AEM-BF</title>
+    <title>Activités & Formations - AEM-BF</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
@@ -31,7 +31,7 @@
                 <nav class="hidden lg:flex space-x-8">
                     <a href="{{ route('home') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Accueil</a>
                     <a href="{{ route('amicale') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">L'Amicale</a>
-                    <a href="{{ route('activites') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Activités</a>
+                    <a href="{{ route('activites') }}" class="text-sm font-medium text-emerald-800 border-b-2 border-emerald-800 transition">Activités</a>
                     <a href="{{ route('universites') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Universités Membres</a>
                     <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Contact</a>
                 </nav>
@@ -57,107 +57,115 @@
     </header>
 
     <!-- HERO SECTION -->
-    <div class="bg-slate-900 text-white py-16 border-b-4 border-amber-400">
+    <div class="bg-slate-900 text-white py-12 border-b-4 border-amber-400">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <span class="text-xs font-semibold tracking-widest text-amber-400 uppercase mb-3 block">Programmes & Événements</span>
-            <h1 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">Activités & Actualités de l'AEM-BF</h1>
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">Espace Activités & Formations</h1>
             <p class="text-slate-300 mt-3 text-sm md:text-base max-w-2xl mx-auto">
-                Retrouvez nos comptes-rendus de visites de sites miniers, nos panels universitaires, nos séminaires de formation et nos annonces officielles.
+                Consultez nos programmes, inscrivez-vous aux modules de formation et accédez aux supports documentaires de nos panels.
             </p>
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- MAIN CONTENT - TABS SYSTEM -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" x-data="{ tab: 'formation' }">
         
-        <!-- SECTION 1 : ÉVÉNEMENT À LA UNE -->
-        <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden mb-16 flex flex-col lg:flex-row">
-            <div class="lg:w-1/2 bg-slate-100 flex items-center justify-center p-8 border-b lg:border-b-0 lg:border-r border-slate-200">
-                <div class="text-slate-400 text-xs italic text-center">
-                    [ Espace Image / Illustration de l'Événement ]
-                </div>
-            </div>
-            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-between">
-                <div>
-                    <span class="inline-block px-3 py-1 bg-amber-50 text-amber-800 text-xs font-semibold rounded-md mb-3">À la Une • Visite de Site</span>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Immersion technique des étudiants miniers sur un site extractif partenaire</h3>
-                    <p class="text-sm text-slate-700 leading-relaxed mb-6">
-                        Dans le cadre du renforcement des compétences pratiques et de l'immersion professionnelle, l'AEM-BF organise une visite guidée majeure d'un site minier industriel au Burkina Faso. Une opportunité unique pour les membres de confronter la théorie académique aux réalités du terrain.
-                    </p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-500">
-                    <span>Date : 15 Juillet 2026</span>
-                    <a href="#" class="font-semibold text-emerald-800 hover:underline">Lire le compte-rendu complet →</a>
-                </div>
-            </div>
+        <!-- Navigation des onglets -->
+        <div class="flex flex-wrap border-b border-gray-200 mb-8 gap-2 md:gap-4">
+            <button @click="tab = 'formation'" :class="tab === 'formation' ? 'border-emerald-800 text-emerald-800 font-bold border-b-2' : 'text-slate-500 hover:text-slate-700'" class="py-3 px-4 focus:outline-none transition-colors uppercase text-xs md:text-sm tracking-wider">
+                Espace Formation
+            </button>
+            <button @click="tab = 'programmes'" :class="tab === 'programmes' ? 'border-emerald-800 text-emerald-800 font-bold border-b-2' : 'text-slate-500 hover:text-slate-700'" class="py-3 px-4 focus:outline-none transition-colors uppercase text-xs md:text-sm tracking-wider">
+                Panels Programmés
+            </button>
+            <button @click="tab = 'encours'" :class="tab === 'encours' ? 'border-emerald-800 text-emerald-800 font-bold border-b-2' : 'text-slate-500 hover:text-slate-700'" class="py-3 px-4 focus:outline-none transition-colors uppercase text-xs md:text-sm tracking-wider">
+                Panels en Cours
+            </button>
+            <button @click="tab = 'supports'" :class="tab === 'supports' ? 'border-emerald-800 text-emerald-800 font-bold border-b-2' : 'text-slate-500 hover:text-slate-700'" class="py-3 px-4 focus:outline-none transition-colors uppercase text-xs md:text-sm tracking-wider">
+                Supports des Panels
+            </button>
         </div>
 
-        <!-- SECTION 2 : GRILLE DES ACTUALITÉS ET ACTIVITÉS -->
-        <div class="mb-16">
-            <div class="mb-8 border-l-4 border-emerald-800 pl-4">
-                <span class="text-xs font-semibold text-emerald-800 uppercase tracking-wider block">Agenda & Compétences</span>
-                <h3 class="text-xl font-bold text-slate-900 tracking-tight">Nos Principaux Pôles d'Activités</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Contenu des onglets -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 min-h-[400px]">
+            
+            <!-- Onglet 1 : Espace Formation -->
+            <div x-show="tab === 'formation'" style="display: none;" x-transition>
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-slate-900">Modules de formation</h3>
+                </div>
                 
-                <!-- Carte Activité 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col justify-between">
-                    <div>
-                        <div class="h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center text-slate-400 text-xs italic">
-                            [ Illustration Photo ]
+                <!-- Exemple de carte de formation (Statique pour le moment) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-slate-200 rounded-lg p-5 flex flex-col justify-between hover:border-emerald-500 transition">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded mb-3">Enregistrement ouvert</span>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Initiation aux logiciels miniers</h4>
+                            <p class="text-sm text-slate-600 mb-4">Formation pratique sur les outils standards de l'industrie pour la modélisation géologique.</p>
                         </div>
-                        <span class="text-xs font-semibold text-emerald-800 uppercase tracking-wider block mb-1">Formation & Séminaire</span>
-                        <h4 class="text-base font-bold text-slate-900 mb-2">Conférences et Panels Universitaires</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                            Organisation de sessions de partage d'expériences avec des experts et cadres dirigeants de l'industrie minière.
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 flex justify-between items-center text-xs">
-                        <span class="text-slate-500">Activité Récurrente</span>
-                        <a href="#" class="font-semibold text-emerald-800 hover:underline">En savoir plus</a>
+                        <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+                            @auth
+                                <!-- Bouton d'inscription (Exemple) -->
+                                <button class="px-4 py-2 bg-emerald-800 text-white text-sm font-medium rounded hover:bg-emerald-900 transition">
+                                    S'inscrire
+                                </button>
+                                <!-- Si déjà inscrit, le bouton de désinscription ressemblerait à ça : -->
+                                <!-- <button class="px-4 py-2 border border-red-200 text-red-600 text-sm font-medium rounded hover:bg-red-50 transition">Se désinscrire</button> -->
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm text-amber-600 font-medium hover:underline">Connectez-vous pour vous inscrire</a>
+                            @endauth
+                        </div>
                     </div>
                 </div>
-
-                <!-- Carte Activité 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col justify-between">
-                    <div>
-                        <div class="h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center text-slate-400 text-xs italic">
-                            [ Illustration Photo ]
-                        </div>
-                        <span class="text-xs font-semibold text-emerald-800 uppercase tracking-wider block mb-1">Terrain & Pratique</span>
-                        <h4 class="text-base font-bold text-slate-900 mb-2">Visites de Sites Miniers & Carrières</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                            Découverte des installations industrielles, des procédés d'extraction, de traitement du minerai et des normes HSE.
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 flex justify-between items-center text-xs">
-                        <span class="text-slate-500">Trimestriel</span>
-                        <a href="#" class="font-semibold text-emerald-800 hover:underline">En savoir plus</a>
-                    </div>
-                </div>
-
-                <!-- Carte Activité 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col justify-between">
-                    <div>
-                        <div class="h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center text-slate-400 text-xs italic">
-                            [ Illustration Photo ]
-                        </div>
-                        <span class="text-xs font-semibold text-emerald-800 uppercase tracking-wider block mb-1">Intégration & Cohésion</span>
-                        <h4 class="text-base font-bold text-slate-900 mb-2">Camp Vacances & Journées d'Intégration</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                            Rassemblement de tous les clubs membres autour d'activités culturelles, sportives et de renforcement de la solidarité.
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 flex justify-between items-center text-xs">
-                        <span class="text-slate-500">Annuel</span>
-                        <a href="#" class="font-semibold text-emerald-800 hover:underline">En savoir plus</a>
-                    </div>
-                </div>
-
             </div>
-        </div>
 
+            <!-- Onglet 2 : Panels Programmés -->
+            <div x-show="tab === 'programmes'" style="display: none;" x-transition>
+                <h3 class="text-xl font-bold text-slate-900 mb-6">Panels à venir</h3>
+                
+                <div class="p-8 bg-slate-50 border border-slate-200 rounded-lg text-center">
+                    <p class="text-slate-500">La liste des panels programmés s'affichera ici.</p>
+                </div>
+            </div>
+
+            <!-- Onglet 3 : Panels en Cours -->
+            <div x-show="tab === 'encours'" style="display: none;" x-transition>
+                <h3 class="text-xl font-bold text-slate-900 mb-6">Événements actuellement en cours</h3>
+                
+                <div class="p-8 bg-slate-50 border border-slate-200 rounded-lg text-center">
+                    <p class="text-slate-500">Aucun panel n'est en cours de diffusion pour le moment.</p>
+                </div>
+            </div>
+
+            <!-- Onglet 4 : Supports des Panels -->
+            <div x-show="tab === 'supports'" style="display: none;" x-transition>
+                <h3 class="text-xl font-bold text-slate-900 mb-6">Documentation et Archives</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead class="bg-slate-50 text-slate-700 uppercase text-xs">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold">Titre du Panel</th>
+                                <th class="px-6 py-3 text-left font-semibold">Date</th>
+                                <th class="px-6 py-3 text-right font-semibold">Fichier Joint</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <!-- Exemple de ligne de document -->
+                            <tr>
+                                <td class="px-6 py-4 text-slate-900 font-medium">Transition Énergétique et Mines</td>
+                                <td class="px-6 py-4 text-slate-600">12 Mai 2026</td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="inline-flex items-center text-emerald-700 hover:text-emerald-900 font-medium">
+                                        Télécharger le PDF
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <!-- FOOTER -->
