@@ -5,10 +5,16 @@
                 {{ __('Administration - Gestion des Membres AEM-BF') }}
             </h2>
             <div class="flex items-center space-x-3">
+                <!-- Bouton vers la gestion des Activités & Formations -->
+                <a href="{{ route('admin.activities') }}" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow-sm transition flex items-center space-x-1">
+                    <span>Gérer Activités & Formations</span>
+                </a>
+
                 <!-- Bouton d'export CSV / Excel -->
                 <a href="{{ route('admin.export.users') }}" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded shadow-sm transition flex items-center space-x-1">
                     <span>📥 Exporter CSV</span>
                 </a>
+                
                 <a href="{{ route('dashboard') }}" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-4 rounded transition">
                     Retour à mon espace
                 </a>
