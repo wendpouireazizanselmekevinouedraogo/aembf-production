@@ -32,4 +32,15 @@ class AdminController extends Controller
 
         return back()->with('success', 'Le statut du membre a été mis à jour avec succès.');
     }
+
+    public function __construct()
+{
+    // Bloque automatiquement l'accès si l'utilisateur connecté n'est pas admin
+    $this->middleware(function ($request, $next) {
+        if (!auth()->check() || !auth()->user()->is_admin) {
+            abort(403, 'Accès non autorisé.');
+        }
+        return $next($request);
+    });
+}
 }
