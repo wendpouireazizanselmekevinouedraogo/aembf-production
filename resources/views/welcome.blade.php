@@ -72,7 +72,7 @@
                 <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase">Former, Unir et Inspirer la nouvelle génération des professionnels des mines.</h1>
                 <p class="text-slate-200 mt-4 text-base max-w-2xl">La plus grande communauté estudiantine du secteur minier au Burkina Faso. Plus de 1 000 membres actifs.</p>
                 <div class="mt-8">
-                    <a href="{{ route('register') }}" class="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded hover:bg-amber-400 transition text-sm shadow">Rejoindre l'AEM-BF</a>
+                    <a href="{{ auth()->check() ? url('/dashboard') : route('register') }}" class="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded hover:bg-amber-400 transition text-sm shadow">Rejoindre l'AEM-BF</a>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
                 <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase">Renforcement des compétences techniques et personnelles.</h1>
                 <p class="text-slate-200 mt-4 text-base max-w-2xl">Accédez à des formations pratiques, des panels et des séminaires adaptés aux exigences du secteur minier moderne.</p>
                 <div class="mt-8">
-                    <a href="{{ route('register') }}" class="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded hover:bg-amber-400 transition text-sm shadow">Découvrir nos formations</a>
+                    <a href="{{ route('activites') }}" class="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded hover:bg-amber-400 transition text-sm shadow">Découvrir nos formations</a>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                 <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase">Construisez votre réseau avec les leaders de l'industrie.</h1>
                 <p class="text-slate-200 mt-4 text-base max-w-2xl">Profitez de visites de sites miniers, de mentorat stratégique et de partenariats durables pour votre carrière.</p>
                 <div class="mt-8">
-                    <a href="{{ route('register') }}" class="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded hover:bg-amber-400 transition text-sm shadow">En savoir plus</a>
+                    <a href="{{ auth()->check() ? url('/dashboard') : route('register') }}" class="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded hover:bg-amber-400 transition text-sm shadow">En savoir plus</a>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@
                     </ul>
                 </div>
                 <div class="mt-8 pt-4 border-t border-slate-50">
-                    <a href="{{ route('register') }}" class="text-xs font-bold text-red-600 hover:underline uppercase tracking-wider">Découvrir le programme →</a>
+                    <a href="{{ route('activites') }}" class="text-xs font-bold text-red-600 hover:underline uppercase tracking-wider">Découvrir le programme →</a>
                 </div>
             </div>
 
@@ -193,11 +193,11 @@
                     </ul>
                 </div>
                 <div class="mt-8 pt-4 border-t border-emerald-700">
-                    <a href="{{ route('register') }}" class="text-xs font-bold text-amber-300 hover:underline uppercase tracking-wider">Adhérer à l'Amicale →</a>
+                    <a href="{{ auth()->check() ? url('/dashboard') : route('register') }}" class="text-xs font-bold text-amber-300 hover:underline uppercase tracking-wider">Adhérer à l'Amicale →</a>
                 </div>
             </div>
 
-            <!-- Colonne 3 : Nos Valeurs (Modifiée en liste à puces sans encadré orange) -->
+            <!-- Colonne 3 : Nos Valeurs -->
             <div class="bg-white rounded-xl shadow-sm border-t-4 border-amber-400 p-8 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
