@@ -51,4 +51,11 @@ class User extends Authenticatable
             'is_active_member' => 'boolean',
         ];
     }
+
+    // Les activités (formations/panels) auxquelles l'utilisateur est inscrit
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class)->withTimestamps();
+    }
+
 }
