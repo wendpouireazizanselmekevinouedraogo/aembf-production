@@ -31,7 +31,7 @@ class AdminController extends Controller
         return back()->with('success', 'Le statut du membre a été mis à jour avec succès.');
     }
 
-    // Exporter la liste des membres en CSV (compatible Google Sheets)
+    // Exporter la liste des membres en CSV (pour Google Sheets et Excel)
     public function exportUsers()
     {
         if (!auth()->check() || !auth()->user()->is_admin) {
@@ -51,10 +51,11 @@ class AdminController extends Controller
 
         $callback = function() use ($users) {
             $file = fopen('php://output', 'w');
-            // Ajout du BOM UTF-8 pour les accents
+            
+            // BOM UTF-8 pour le bon affichage des accents dans Excel et Google Sheets
             fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
             
-            // En-têtes
+            // Entêtes des colonnes
             fputcsv($file, ['ID', 'Nom', 'Email', 'Téléphone', 'Statut', 'Date d\'inscription'], ';');
 
             // Données
