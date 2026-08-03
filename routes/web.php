@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ActivityController;
 use App\Models\University; 
 use App\Models\Post; 
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,13 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Modifier la route actuelle des activités par celle-ci pour lier le contrôleur :
+    Route::get('/activites', [ActivityController::class, 'index'])->name('activites');
+    // Permet à un utilisateur connecté de s'inscrire ou se désinscrire
+    Route::post('/activites/{activity}/toggle', [ActivityController::class, 'toggleInscription'])->name('activites.toggle')->middleware('auth');
+
+
+
     // Espace Admin
     Route::prefix('admin')->group(function () {
         
@@ -51,6 +59,11 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/universities/{university}', [UniversityController::class, 'update'])->name('admin.universities.update');
         Route::delete('/universities/{university}', [UniversityController::class, 'destroy'])->name('admin.universities.destroy');
 
+
+        // Gestion Admin des activités
+        Route::get('/admin/activites', [ActivityController::class, 'adminIndex'])->name('admin.activities');
+        Route::post('/admin/activites', [ActivityController::class, 'store'])->name('admin.activities.store');
+        Route::delete('/admin/activites/{activity}', [ActivityController::class, 'destroy'])->name('admin.activities.destroy');
     });
 
 });
