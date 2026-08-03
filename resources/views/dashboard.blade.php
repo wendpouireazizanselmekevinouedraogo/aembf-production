@@ -18,8 +18,9 @@
                     <p class="text-sm text-slate-600">Bienvenue dans le panneau de contrôle de l'AEM-BF.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Gestion des Membres -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- 1. Gestion des Membres -->
                     <div class="bg-white/95 backdrop-blur-sm overflow-hidden shadow-sm sm:rounded-lg p-6 border border-slate-200 border-t-4 border-amber-500 flex flex-col justify-between">
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 mb-2">Gestion des Membres</h4>
@@ -30,7 +31,7 @@
                         </a>
                     </div>
 
-                    <!-- Gestion des Actualités -->
+                    <!-- 2. Gestion des Actualités -->
                     <div class="bg-white/95 backdrop-blur-sm overflow-hidden shadow-sm sm:rounded-lg p-6 border border-slate-200 border-t-4 border-blue-600 flex flex-col justify-between">
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 mb-2">Actualités & Annonces</h4>
@@ -41,7 +42,7 @@
                         </a>
                     </div>
 
-                    <!-- Gestion des Universités -->
+                    <!-- 3. Gestion des Universités -->
                     <div class="bg-white/95 backdrop-blur-sm overflow-hidden shadow-sm sm:rounded-lg p-6 border border-slate-200 border-t-4 border-emerald-800 flex flex-col justify-between">
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 mb-2">Universités & Écoles</h4>
@@ -51,6 +52,18 @@
                             Gérer les universités →
                         </a>
                     </div>
+
+                    <!-- 4. Gestion des Formations & Panels (NOUVEAU) -->
+                    <div class="bg-white/95 backdrop-blur-sm overflow-hidden shadow-sm sm:rounded-lg p-6 border border-slate-200 border-t-4 border-indigo-600 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-900 mb-2">Formations & Panels</h4>
+                            <p class="text-sm text-slate-600 mb-6">Ajoutez les modules de formation, les panels et leurs fichiers (PDF, Word, Images).</p>
+                        </div>
+                        <a href="{{ route('admin.activities') }}" class="inline-block text-center bg-indigo-600 text-white font-semibold px-4 py-2 rounded hover:bg-indigo-700 transition text-sm shadow-sm">
+                            Gérer les activités →
+                        </a>
+                    </div>
+
                 </div>
 
             @else
