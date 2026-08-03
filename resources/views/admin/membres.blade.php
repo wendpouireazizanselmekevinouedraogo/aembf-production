@@ -5,9 +5,9 @@
                 {{ __('Administration - Gestion des Membres AEM-BF') }}
             </h2>
             <div class="flex items-center space-x-3">
-                <!-- Bouton d'export Excel -->
+                <!-- Bouton d'export CSV / Excel -->
                 <a href="{{ route('admin.export.users') }}" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded shadow-sm transition flex items-center space-x-1">
-                    <span>📥 Exporter Excel</span>
+                    <span>📥 Exporter CSV</span>
                 </a>
                 <a href="{{ route('dashboard') }}" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-4 rounded transition">
                     Retour à mon espace
@@ -52,15 +52,15 @@
                                     </td>
                                     <td class="px-6 py-4 text-slate-600">
                                         <div>{{ $u->email }}</div>
-                                        <div class="text-xs text-slate-500">{{ $u->telephone }}</div>
+                                        <div class="text-xs text-slate-500">{{ $u->telephone ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 text-slate-600">
-                                        <div class="font-semibold text-slate-800">{{ $u->university }}</div>
-                                        <div class="text-xs">{{ $u->field_of_study }} ({{ $u->academic_year }})</div>
+                                        <div class="font-semibold text-slate-800">{{ $u->university ?? 'N/A' }}</div>
+                                        <div class="text-xs">{{ $u->field_of_study ?? '' }}</div>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        @if($u->cv_path)
-                                            <a href="{{ asset('storage/' . $u->cv_path) }}" target="_blank" class="inline-flex items-center px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded border border-blue-200 transition">
+                                        @if($u->cv)
+                                            <a href="{{ asset('storage/' . $u->cv) }}" target="_blank" class="inline-flex items-center px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded border border-blue-200 transition">
                                                 📄 Voir CV
                                             </a>
                                         @else
