@@ -4,9 +4,15 @@
             <h2 class="font-semibold text-xl text-slate-800 leading-tight">
                 {{ __('Administration - Gestion des Membres AEM-BF') }}
             </h2>
-            <a href="{{ route('dashboard') }}" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-4 rounded transition">
-                Retour à mon espace
-            </a>
+            <div class="flex items-center space-x-3">
+                <!-- Bouton d'export Excel -->
+                <a href="{{ route('admin.export.users') }}" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded shadow-sm transition flex items-center space-x-1">
+                    <span>📥 Exporter Excel</span>
+                </a>
+                <a href="{{ route('dashboard') }}" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-4 rounded transition">
+                    Retour à mon espace
+                </a>
+            </div>
         </div>
     </x-slot>
 
@@ -30,6 +36,7 @@
                                     <th class="px-6 py-3 text-left">Nom & Prénom</th>
                                     <th class="px-6 py-3 text-left">Contact / Email</th>
                                     <th class="px-6 py-3 text-left">Établissement & Filière</th>
+                                    <th class="px-6 py-3 text-center">CV (PDF)</th>
                                     <th class="px-6 py-3 text-center">Statut Actuel</th>
                                     <th class="px-6 py-3 text-center">Action</th>
                                 </tr>
@@ -50,6 +57,15 @@
                                     <td class="px-6 py-4 text-slate-600">
                                         <div class="font-semibold text-slate-800">{{ $u->university }}</div>
                                         <div class="text-xs">{{ $u->field_of_study }} ({{ $u->academic_year }})</div>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        @if($u->cv_path)
+                                            <a href="{{ asset('storage/' . $u->cv_path) }}" target="_blank" class="inline-flex items-center px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded border border-blue-200 transition">
+                                                📄 Voir CV
+                                            </a>
+                                        @else
+                                            <span class="text-xs text-slate-400 italic">Aucun CV</span>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         @if($u->is_active_member)

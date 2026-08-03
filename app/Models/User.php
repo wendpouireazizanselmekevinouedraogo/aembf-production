@@ -25,6 +25,7 @@ class User extends Authenticatable
         'field_of_study',
         'academic_year',
         'is_active_member',
+        'cv_path',
     ];
 
     /**

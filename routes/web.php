@@ -16,6 +16,7 @@ Route::get('/', function () {
     return view('welcome', compact('posts'));
 })->name('home');
 
+Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export.users')->middleware(['auth', 'admin']);
 
 // ==========================================
 // 2. TOUTES LES AUTRES PAGES (Connexion obligatoire)
