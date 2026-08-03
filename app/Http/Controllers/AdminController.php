@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class AdminController extends Controller
 {
     // Afficher la liste de tous les inscrits
