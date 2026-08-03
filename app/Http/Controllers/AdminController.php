@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Exports\UsersExport;
-use Maatwebsite\Excel\Facades\Excel;
-
 
 class AdminController extends Controller
 {
@@ -34,13 +31,47 @@ class AdminController extends Controller
         return back()->with('success', 'Le statut du membre a été mis à jour avec succès.');
     }
 
-    // Exporter la liste des membres en Excel
+    // Exporter la liste des membres en CSV (compatible Google Sheets)
     public function exportUsers()
     {
         if (!auth()->check() || !auth()->user()->is_admin) {
             abort(403, 'Accès non autorisé.');
         }
 
-        return Excel::download(new UsersExport, 'membres-aembf.xlsx');
+        $fileName = 'membres-aembf.csv';
+        $users = User::all();
+
+        $headers = [
+            "Content-type"        => "text/csv; charset=UTF-8",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+
+        $callback = function() use ($users) {
+            $file = fopen('php://output', 'w');
+            // Ajout du BOM UTF-8 pour les accents
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+            
+            // En-têtes
+            fputcsv($file, ['ID', 'Nom', 'Email', 'Téléphone', 'Statut', 'Date d\'inscription'], ';');
+
+            // Données
+            foreach ($users as $user) {
+                fputcsv($file, [
+                    $user->id,
+                    $user->name,
+                    $user->email,
+                    $user->phone ?? 'N/A',
+                    $user->is_active_member ? 'Actif' : 'Inactif',
+                    $user->created_at
+                ], ';');
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }
