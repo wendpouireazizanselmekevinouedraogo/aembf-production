@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Espace Admin (La sécurité se fera directement dans les contrôleurs pour éviter tout bug)
+    // Espace Admin
     Route::prefix('admin')->group(function () {
         
         Route::get('/export-users', [AdminController::class, 'exportUsers'])->name('admin.export.users');
