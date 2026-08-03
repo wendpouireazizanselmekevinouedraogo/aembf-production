@@ -16,8 +16,6 @@ Route::get('/', function () {
     return view('welcome', compact('posts'));
 })->name('home');
 
-Route::get('/admin/export-users', [AdminController::class, 'exportUsers'])->name('admin.export.users')->middleware(['auth', 'admin']);
-
 // ==========================================
 // 2. TOUTES LES AUTRES PAGES (Connexion obligatoire)
 // ==========================================
@@ -50,12 +48,19 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
     // ==========================================
-    // 3. ESPACE ADMINISTRATION
+    // 3. ESPACE ADMINISTRATION (Réservé aux admins)
     // ==========================================
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware(function ($request, $next) {
+        if (!auth()->check() || !auth()->user()->is_admin) {
+            abort(403, 'Accès non autorisé.');
+        }
+        return $next($request);
+    })->group(function () {
         
+        // Export Excel des membres
+        Route::get('/export-users', [AdminController::class, 'exportUsers'])->name('admin.export.users');
+
         // Membres
         Route::get('/membres', [AdminController::class, 'index'])->name('admin.membres');
         Route::patch('/membres/{user}/toggle', [AdminController::class, 'toggleValidation'])->name('admin.membres.toggle');
