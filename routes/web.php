@@ -21,7 +21,6 @@ Route::get('/', function () {
 // ==========================================
 Route::middleware(['auth'])->group(function () {
 
-    // Pages internes du site réservées aux membres connectés
     Route::get('/amicale', function () {
         return view('amicale');
     })->name('amicale');
@@ -39,7 +38,6 @@ Route::middleware(['auth'])->group(function () {
         return view('contact');
     })->name('contact');
 
-    // Tableau de bord et profil
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -49,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // ==========================================
-    // 3. ESPACE ADMINISTRATION (Réservé aux admins)
+    // 3. ESPACE ADMINISTRATION
     // ==========================================
     Route::prefix('admin')->middleware(function ($request, $next) {
         if (!auth()->check() || !auth()->user()->is_admin) {
@@ -58,14 +56,11 @@ Route::middleware(['auth'])->group(function () {
         return $next($request);
     })->group(function () {
         
-        // Export Excel des membres
         Route::get('/export-users', [AdminController::class, 'exportUsers'])->name('admin.export.users');
 
-        // Membres
         Route::get('/membres', [AdminController::class, 'index'])->name('admin.membres');
         Route::patch('/membres/{user}/toggle', [AdminController::class, 'toggleValidation'])->name('admin.membres.toggle');
 
-        // Actualités
         Route::get('/actualites', [PostController::class, 'index'])->name('admin.posts.index');
         Route::get('/actualites/creer', [PostController::class, 'create'])->name('admin.posts.create');
         Route::post('/actualites', [PostController::class, 'store'])->name('admin.posts.store');
@@ -73,7 +68,6 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/actualites/{post}', [PostController::class, 'update'])->name('admin.posts.update');
         Route::delete('/actualites/{post}', [PostController::class, 'destroy'])->name('admin.posts.destroy');
 
-        // Universités
         Route::get('/universities', [UniversityController::class, 'index'])->name('admin.universities.index');
         Route::get('/universities/create', [UniversityController::class, 'create'])->name('admin.universities.create');
         Route::post('/universities', [UniversityController::class, 'store'])->name('admin.universities.store');
