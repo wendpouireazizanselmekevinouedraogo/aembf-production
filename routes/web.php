@@ -17,7 +17,6 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/amicale', function () { return view('amicale'); })->name('amicale');
-    Route::get('/activites', function () { return view('activites'); })->name('activites');
     Route::get('/universites', function () {
         $universities = University::latest()->get();
         return view('universites', compact('universities'));
@@ -30,11 +29,11 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Modifier la route actuelle des activités par celle-ci pour lier le contrôleur :
+    // La SEULE et UNIQUE route pour la page publique des activités :
     Route::get('/activites', [ActivityController::class, 'index'])->name('activites');
+    
     // Permet à un utilisateur connecté de s'inscrire ou se désinscrire
-    Route::post('/activites/{activity}/toggle', [ActivityController::class, 'toggleInscription'])->name('activites.toggle')->middleware('auth');
-
+    Route::post('/activites/{activity}/toggle', [ActivityController::class, 'toggleInscription'])->name('activites.toggle');
 
 
     // Espace Admin
@@ -59,11 +58,10 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/universities/{university}', [UniversityController::class, 'update'])->name('admin.universities.update');
         Route::delete('/universities/{university}', [UniversityController::class, 'destroy'])->name('admin.universities.destroy');
 
-
-        // Gestion Admin des activités
-        Route::get('/admin/activites', [ActivityController::class, 'adminIndex'])->name('admin.activities');
-        Route::post('/admin/activites', [ActivityController::class, 'store'])->name('admin.activities.store');
-        Route::delete('/admin/activites/{activity}', [ActivityController::class, 'destroy'])->name('admin.activities.destroy');
+        // Gestion Admin des activités (Correction : suppression du "/admin" en trop)
+        Route::get('/activites', [ActivityController::class, 'adminIndex'])->name('admin.activities');
+        Route::post('/activites', [ActivityController::class, 'store'])->name('admin.activities.store');
+        Route::delete('/activites/{activity}', [ActivityController::class, 'destroy'])->name('admin.activities.destroy');
     });
 
 });
