@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AEM-BF - Amicale des Étudiants Miniers du Burkina Faso</title>
     
-    <!-- Voici la ligne magique qui charge Tailwind directement -->
+    <!-- Chargement de Tailwind directement -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -13,29 +13,32 @@
 <body class="antialiased bg-slate-50 text-slate-900 font-sans">
 
     <!-- HEADER -->
-    <header class="bg-white border-b border-emerald-800/20 sticky top-0 z-50 shadow-sm">
+    <header class="bg-white border-b border-emerald-800/20 sticky top-0 z-50 shadow-sm" x-data="{ mobileMenuOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
                         <img class="h-14 w-auto" src="{{ asset('images/logo.jpg') }}" alt="Logo AEM-BF">
                     </a>
                 </div>
 
+                <!-- Navigation Desktop -->
                 <nav class="hidden lg:flex space-x-8">
-                     <a href="{{ route('home') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Accueil</a>
+                    <a href="{{ route('home') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Accueil</a>
                     <a href="{{ route('amicale') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">L'Amicale</a>
                     <a href="{{ route('activites') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Activités</a>
                     <a href="{{ route('universites') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Universités Membres</a>
                     <a href="{{ route('contact') }}" class="text-sm font-medium text-slate-700 hover:text-emerald-800 transition">Contact</a>
                 </nav>
 
+                <!-- Boutons d'action et Menu Hamburger Mobile -->
                 <div class="flex items-center space-x-3">
                     @if (Route::has('login'))
                         @auth
                             <a href="{{ url('/dashboard') }}" class="px-4 py-2 border border-slate-300 rounded text-sm font-medium text-slate-700 hover:bg-slate-50 transition">Mon Espace</a>
                         @else
-                            <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-emerald-800 transition">
+                            <a href="{{ route('login') }}" class="hidden sm:inline-block px-4 py-2 text-sm font-medium text-slate-700 hover:text-emerald-800 transition">
                                 Connexion
                             </a>
                             @if (Route::has('register'))
@@ -45,8 +48,30 @@
                             @endif
                         @endauth
                     @endif
+
+                    <!-- Bouton Burger Mobile -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 rounded-md text-slate-700 hover:text-emerald-800 hover:bg-slate-100 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="mobileMenuOpen" style="display: none;" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
             </div>
+        </div>
+
+        <!-- Menu Déroulant Mobile -->
+        <div x-show="mobileMenuOpen" style="display: none;" class="lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-lg" x-transition>
+            <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-800">Accueil</a>
+            <a href="{{ route('amicale') }}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-800">L'Amicale</a>
+            <a href="{{ route('activites') }}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-800">Activités</a>
+            <a href="{{ route('universites') }}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-800">Universités Membres</a>
+            <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-800">Contact</a>
+            @guest
+                <div class="pt-4 border-t border-slate-100">
+                    <a href="{{ route('login') }}" class="block text-center w-full px-4 py-2 border border-slate-300 rounded text-sm font-medium text-slate-700 hover:bg-slate-50 mb-2">Connexion</a>
+                </div>
+            @endguest
         </div>
     </header>
 
